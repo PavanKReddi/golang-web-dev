@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world-service
+  template:
+    metadata:
+      labels:
+        app: hello-world-service
+    spec:
+      containers:
+      - name: hello-world-service
+        image: localhost:5000/hello-world-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080

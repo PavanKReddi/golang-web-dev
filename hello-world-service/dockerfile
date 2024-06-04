@@ -1,0 +1,11 @@
+# syntax=docker/dockerfile:1
+FROM golang:1.22-alpine as builder
+WORKDIR /app
+COPY . .
+RUN go build -o hello-world-service
+
+FROM alpine:3.14
+WORKDIR /app
+COPY --from=builder /app/hello-world-service .
+EXPOSE 8080
+CMD ["./hello-world-service"]
