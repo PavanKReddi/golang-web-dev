@@ -32,47 +32,47 @@ func init() {
 
 func main() {
 	years := []year{
-		year{
+		{
 			AcaYear: "2020-2021",
 			Fall: semester{
 				Term: "Fall",
 				Courses: []course{
-					course{"CSCI-40", "Introduction to Programming in Go", "4"},
-					course{"CSCI-130", "Introduction to Web Programming with Go", "4"},
-					course{"CSCI-140", "Mobile Apps Using Go", "4"},
+					{Number: "CSCI-40", Name: "Introduction to Programming in Go", Units: "4"},
+					{Number: "CSCI-130", Name: "Introduction to Web Programming with Go", Units: "4"},
+					{Number: "CSCI-140", Name: "Mobile Apps Using Go", Units: "4"},
 				},
 			},
 			Spring: semester{
 				Term: "Spring",
 				Courses: []course{
-					course{"CSCI-50", "Advanced Go", "5"},
-					course{"CSCI-190", "Advanced Web Programming with Go", "5"},
-					course{"CSCI-191", "Advanced Mobile Apps With Go", "5"},
+					{Number: "CSCI-50", Name: "Advanced Go", Units: "5"},
+					{Number: "CSCI-190", Name: "Advanced Web Programming with Go", Units: "5"},
+					{Number: "CSCI-191", Name: "Advanced Mobile Apps With Go", Units: "5"},
 				},
 			},
 		},
-		year{
+		{
 			AcaYear: "2021-2022",
 			Fall: semester{
 				Term: "Fall",
 				Courses: []course{
-					course{"CSCI-40", "Introduction to Programming in Go", "4"},
-					course{"CSCI-130", "Introduction to Web Programming with Go", "4"},
-					course{"CSCI-140", "Mobile Apps Using Go", "4"},
+					{Number: "CSCI-40", Name: "Introduction to Programming in Go", Units: "4"},
+					{Number: "CSCI-130", Name: "Introduction to Web Programming with Go", Units: "4"},
+					{Number: "CSCI-140", Name: "Mobile Apps Using Go", Units: "4"},
 				},
 			},
 			Spring: semester{
 				Term: "Spring",
 				Courses: []course{
-					course{"CSCI-50", "Advanced Go", "5"},
-					course{"CSCI-190", "Advanced Web Programming with Go", "5"},
-					course{"CSCI-191", "Advanced Mobile Apps With Go", "5"},
+					{Number: "CSCI-50", Name: "Advanced Go", Units: "5"},
+					{Number: "CSCI-190", Name: "Advanced Web Programming with Go", Units: "5"},
+					{Number: "CSCI-191", Name: "Advanced Mobile Apps With Go", Units: "5"},
 				},
 			},
 		},
 	}
 
-	err := tpl.Execute(os.Stdout, nil)
+	err := tpl.Execute(os.Stdout, years)
 	if err != nil {
 		log.Fatalln(err)
 	}

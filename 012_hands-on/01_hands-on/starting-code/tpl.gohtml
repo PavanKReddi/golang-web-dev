@@ -2,15 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Course Schedule</title>
 </head>
 <body>
-
-{{range .}}
-
-<!-- PUT YOUR CODE HERE TO SHOW THE DATA-->
-
-{{end}}
-
+    {{range .}}
+    <h1>Academic Year: {{.AcaYear}}</h1>
+    <h2>{{.Fall.Term}} Semester</h2>
+    <ul>
+        {{range .Fall.Courses}}
+        <li>{{.Number}}: {{.Name}} ({{.Units}} units)</li>
+        {{end}}
+    </ul>
+    <h2>{{.Spring.Term}} Semester</h2>
+    <ul>
+        {{range .Spring.Courses}}
+        <li>{{.Number}}: {{.Name}} ({{.Units}} units)</li>
+        {{end}}
+    </ul>
+    <h2>{{.Summer.Term}} Semester</h2>
+    <ul>
+        {{range .Summer.Courses}}
+        <li>{{.Number}}: {{.Name}} ({{.Units}} units)</li>
+        {{end}}
+    </ul>
+    {{end}}
 </body>
 </html>
