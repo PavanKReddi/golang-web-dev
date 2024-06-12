@@ -7,7 +7,6 @@ import (
 	"log"
 	"net"
 	"strings"
-	"time"
 )
 
 func main() {
@@ -32,7 +31,6 @@ func main() {
 
 func handleConnection(c net.Conn) {
 	defer c.Close()
-	c.SetDeadline(time.Now().Add(5 * time.Second)) // Set a timeout for the connection
 
 	scanner := bufio.NewScanner(c)
 	var method, url string
@@ -66,15 +64,26 @@ func handleConnection(c net.Conn) {
 	// Handle different HTTP methods
 	switch method {
 	case "GET":
-		handleGet(c, url)
+		handleGet(c)
 	default:
 		handleNotAllowed(c)
 	}
 }
 
-func handleGet(c net.Conn, url string) {
-	body := fmt.Sprintf("You requested the URL: %s\n", url)
-	response := buildResponse("200 OK", "text/plain", body)
+func handleGet(c net.Conn) {
+	body := `
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<title>Code Gangsta</title>
+		</head>
+		<body>
+			<h1>"HOLY COW THIS IS LOW LEVEL"</h1>
+		</body>
+		</html>
+	`
+	response := buildResponse("200 OK", "text/html", body)
 	io.WriteString(c, response)
 }
 
