@@ -9,18 +9,28 @@ import (
 var tpl *template.Template
 
 func init() {
-	tpl = template.Must(template.ParseFiles("templates/index.gohtml"))
+	var err error
+	tpl, err = template.ParseFiles("templates/index.gohtml")
+	if err != nil {
+		log.Fatalf("Error parsing template: %v", err)
+	}
 }
 
 func main() {
-	http.HandleFunc("/", dogs)
+	http.HandleFunc("/", dogsHandler)
 	http.Handle("/resources/", http.StripPrefix("/resources", http.FileServer(http.Dir("public"))))
-	http.ListenAndServe(":8080", nil)
+
+	log.Printf("Starting server on port :8080")
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatalf("Server failed to start: %v", err)
+	}
 }
 
-func dogs(w http.ResponseWriter, req *http.Request) {
+func dogsHandler(w http.ResponseWriter, req *http.Request) {
 	err := tpl.Execute(w, nil)
 	if err != nil {
-		log.Fatalln("template didn't execute: ", err)
+		log.Printf("Error executing template: %v", err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
